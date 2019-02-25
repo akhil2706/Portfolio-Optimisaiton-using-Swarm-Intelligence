@@ -1,0 +1,714 @@
+
+
+
+#Setup for Experimentation of Algorithms
+
+# 96 Stocks Setup
+
+```{r}
+
+library(matlib)
+mu<-c(0.083837648860397865, 0.087960665156200615, 0.15041114456904212, 0.096485265860637326, 0.10149791793776473, 0.077222610727840035, 0.081928696915998564, 0.11980735267483686, 0.18164321076093609, 0.12626320785460121, 0.1024223000415668, 0.085112489405458139, 0.22404981030889487, 0.14204145402075927, 0.074461495389220062, 0.059850502420741199, 0.12358752766553942, 0.072820684388051865, 0.083947100793279564, 0.097082570184405137, 0.075536313180398953, 0.059252238181313692, 0.10004737482650133, 0.083126052024863575, 0.16365468054578861, 0.085817949077967207, 0.10642044998291032, 0.07081256987412049, 0.080804063174038668, 0.081252712912305708, 0.041506898763278198, 0.051503179939325489, 0.10037167251208476, 0.10613675821824456, 0.073976797169421488, 0.062969361513967967, 0.11655995583548871, 0.089553164315290687, 0.22127660645221342, 0.18311289881020773, 0.045861597481422496, 0.081465529215752272, 0.065680129436331197, 0.07387140958141851, 0.11309874995802494, 0.13200381072223011, 0.082215289896982333, 0.10213229110599757, 0.097681652030183044, 0.055009995489980881, 0.17234982006440122, 0.060723080962736799, 0.060953381072641172, 0.13243760658217929, 0.088589781934812664, 0.073849102630719518, 0.066079331231423469, 0.096279193071242802, 0.084388416771613767, 0.10882983210203501, 0.12407449177611353, 0.10817271182359317, 0.079740986959858401, 0.085187041310755524, 0.088172417033704334, 0.055752886250127878, 0.13589690439303645, 0.09225119019338153, 0.20186398907904962, 0.11183739193832404, 0.066465945053210101, 0.053447719426093929, 0.21739617690018154, 0.055439471163628497, 0.13224429191147524, 0.12698146131549179, 0.14886663188296256, 0.10009617548061414, 0.14061308386419535, 0.13314464875450518, 0.068499022124413125, 0.078542217300926143, 0.045690219041847155, 0.11047320099820263, 0.15477482337560702, 0.091420123280288576, 0.14886373020166632, 0.089204341447120569, 0.068866463340540737, 0.065873565502837836, 0.14197353086917208, 0.076743778879566696, 0.27086656937770315, 0.033105603242683246, 0.18192329943375066, 0.080810514497424879)
+
+sigma<-diag(c(0.33657952088403265, 0.22104442005189284, 0.41504173749716755, 0.2502963546220256, 0.35618323381937261, 0.23965249423392021, 0.36928632872957989, 0.32833050690734938, 0.32778992557736464, 0.31107846031966463, 0.4668219867607652, 0.34261431475760934, 0.42776609605142613, 0.309068897799334, 0.28493178082038334, 0.37622784658511593, 0.29205737246706631, 0.28292526779569227, 0.31401637837041879, 0.25212897103965248, 0.28521658287230833, 0.19302765210561423, 0.33119312822050162, 0.29734526766362113, 0.51297480970330323, 0.26415159281616546, 0.30940265695424196, 0.29110627335777634, 0.30465789838948265, 0.3187522127564355, 0.22843748717430079, 0.1737000387181537, 0.30865907833389028, 0.3331597989824196, 0.28242142545619059, 0.16866225746756042, 0.30300014123311597, 0.24685183695997279, 0.46292838357518368, 0.37269685429220178, 0.22466899377682137, 0.36842869138020901, 0.26461971627857478, 0.27483383426686731, 0.36671184139876817, 0.38462395739849248, 0.35600420050200376, 0.29093855000924512, 0.23321425172471355, 0.26706949699221882, 0.3113093105765905, 0.24691051796588512, 0.3183917862596865, 0.32290108060076267, 0.345750161100083, 0.27384895518227059, 0.26434435856577926, 0.26643645259218479, 0.27745386298249797, 0.45778023246658506, 0.29079640931805534, 0.34408332370697087, 0.26793268141982329, 0.3361981864217497, 0.24612179073839113, 0.22386108776777444, 0.28970619833457534, 0.23138851317755274, 0.34102507789085879, 0.40927550542658747, 0.23071883565617263, 0.19806266404936521, 0.43844211599640515, 0.23982487414443895, 0.39482221823343433, 0.31915779156325325, 0.3957083629499259, 0.29263272857389283, 0.39216927267199919, 0.40990086239782103, 0.29087999060471514, 0.46778371955946324, 0.21859796315449861, 0.4044978911715732, 0.4164433243002299, 0.2951557828793161, 0.42837570816197995, 0.29667601874778277, 0.29277900977810856, 0.29713794282934403, 0.35934237298732347, 0.25398018067875805, 0.59580029729523754, 0.21236786625810261, 0.33259166671542123, 0.29917413151372502))
+library(readxl)
+#Stocks96_corr <- read_excel("Desktop/Stocks96_corr.xlsx")
+corr<-as.matrix(Stocks96_corr)
+corr<-matrix(as.numeric(corr[2:97,]),nrow=96,ncol=96)
+cov_mat<-sigma%*%corr%*%sigma
+no_stocks=96
+```
+
+
+#48 Stocks Setup
+
+```{r}
+library(matlib)
+mu<-c(-0.25313295, 0.32616156, 0.47453869, 0.53895812, 0.18318088, 1.92930595, 1.21951913, 0.05808719, 0.18318088, 0.08636972, 0.46549724, -0.16003674, 0.04246588, 0.1756282, 0.57438094, 0.07019192, -0.13364138, 0.34921983, 0.368574, 0.37342744, 2.34775209, 0.19746838, 0.2143014, 0.26671331, -0.07173488, 0.49490366, 0.92247297, 0.65008375, 0.13786009, 0.28769269, 0.12678395, 0.22375595, 0.27966506, 0.20904529, -0.26802798, 0.33113114, 0.10938397, -0.0423146, -0.04690111, 0.09367715, 0.31714113, 0.20138045, -0.11903178, 0.72825573, 0.40536161, 0.69347615, -0.01262766, 1.13461195)
+
+sigma<-diag(c(0.41504173749716755, 0.2502963546220256, 0.23965249423392021, 0.36928632872957989, 0.32833050690734938, 0.32778992557736464, 0.309068897799334, 0.28493178082038334, 0.37622784658511593, 0.29205737246706631, 0.25212897103965248, 0.28521658287230833, 0.30940265695424196, 0.29110627335777634, 0.3187522127564355, 0.28242142545619059, 0.16866225746756042, 0.24685183695997279, 0.46292838357518368, 0.37269685429220178, 0.22466899377682137, 0.26461971627857478, 0.27483383426686731, 0.36671184139876817, 0.35600420050200376, 0.29093855000924512, 0.23321425172471355, 0.26706949699221882, 0.24691051796588512, 0.32290108060076267, 0.345750161100083, 0.26434435856577926, 0.26793268141982329, 0.3361981864217497, 0.23071883565617263, 0.23982487414443895, 0.39216927267199919, 0.29087999060471514, 0.21859796315449861, 0.4164433243002299, 0.42837570816197995, 0.29667601874778277, 0.35934237298732347, 0.25398018067875805, 0.59580029729523754, 0.21236786625810261, 0.33259166671542123, 0.299174131513725029))
+#
+library(readxl)
+#Stocks48_corr <- read_excel("Desktop/Stocks48_corr.xlsx",sheet = "Sheet 1 - Stocks48_corr")
+
+corr<-as.matrix(Stocks48_corr)
+corr<-matrix(as.numeric(corr[2:49,]),nrow=48,ncol=48)
+cov_mat<-sigma%*%corr%*%sigma
+no_stocks=48
+```
+
+#24 Stocks Setup
+```{r}
+library(readxl)
+library(matlib)
+sigma<-diag(c(0.32833050690734938, 0.41504173749716755, 0.2502963546220256, 0.32833050690734938, 0.25212897103965248, 0.28521658287230833, 0.3187522127564355, 0.16866225746756042, 0.46292838357518368, 0.37269685429220178, 0.22466899377682137, 0.3361981864217497, 0.23071883565617263, 0.23982487414443895, 0.39216927267199919, 0.21859796315449861, 0.42837570816197995, 0.59580029729523754, 0.26706949699221882, 0.32290108060076267, 0.36671184139876817, 0.27483383426686731, 0.29093855000924512, 0.24691051796588512))
+
+mu<-c(0.18318088,-0.25313295, 0.32616156, 0.18318088, -0.16003674, 0.04246588, 0.07019192, 0.34921983, 0.37342744, 2.34775209, 0.19746838, -0.26802798, 0.33113114, 0.10938397, -0.0423146, 0.09367715, 0.20138045, 0.69347615, 0.13786009, 0.12678395, -0.07173488, 0.26671331, 0.92247297, 0.28769269)
+
+#Stocks24_corr <- read_excel("Desktop/Stocks24_corr.xlsx")
+corr<-as.matrix(Stocks24_corr)
+corr<-matrix(as.numeric(corr[2:25,]),nrow=24,ncol=24)
+cov_mat<-sigma%*%corr%*%sigma
+no_stocks=24
+```
+
+#12 Stocks Setup
+```{r}
+library(matlib)
+library(readxl)
+
+sigma<-diag(c(0.28521658287230833, 0.3187522127564355, 0.16866225746756042, 0.3361981864217497, 0.23071883565617263, 0.23982487414443895, 0.39216927267199919, 0.21859796315449861, 0.42837570816197995, 0.27483383426686731, 0.29093855000924512, 0.24691051796588512))
+
+mu<-c(0.04246588,  0.07019192,  0.34921983, -0.26802798,  0.33113114,  0.10938397, -0.0423146,  0.09367715,  0.20138045,  0.26671331,  0.92247297,  0.28769269)
+
+#Stocks12_corr <- read_excel("Desktop/Stocks12_corr.xlsx")
+corr<-as.matrix(Stocks12_corr)
+corr<-matrix(as.numeric(corr[2:13,]),nrow=12,ncol=12)
+cov_mat<-sigma%*%corr%*%sigma
+no_stocks=12
+```
+
+
+# Basic Initiations
+```{r}
+#inv_cov_mat<-inv(cov_mat)
+rfr=0.069
+
+#Portfolio Risk and Return
+portfolio_risk <- function(agent){
+  return(sqrt(agent%*%cov_mat%*%t(agent)))}
+#[[owhich.max(fits)]]
+portfolio_return <- function(agent){
+  return(agent%*%(mu))}
+
+#Levy Distribution
+levy <- function(){
+beta <- 1
+usigma <- ((gamma(1+beta)*sin(0.5*pi*beta))/(gamma(0.5*(1+beta))*beta*(2**(0.5*(beta-1)))))**(1/beta)
+v <- rnorm(1)
+u <- rnorm(1,mean=0,sd=usigma)
+s <- u/(abs(v)**(1/beta))
+return(s)
+}
+```
+
+```{r}
+#Initializing Agents
+fixed_intialisations <- list()
+no_agents=60
+for(i in 1:no_agents){
+  fixed_intialisations[[i]] <- t(runif(no_stocks,-0.5,0.5))
+  #fixed_intialisations[[i]] <- t(runif(no_stocks,0,1))
+}
+sharpe <- function(w){
+  return ((w%*%mu)/(sqrt(w%*%cov_mat%*%t(w))))
+}
+
+```
+
+
+```{r}
+#Computing Sum of Weights
+sum_weights<-function(optimal_agent){
+we=0
+for(i in 1:no_stocks){
+  we<-we+optimal_agent[i]
+}
+  return(we)
+}
+
+#Returning Best Agent
+best_agent<-function(agents,no,type){
+fits<-matrix(nrow=0,ncol = 1)
+for(i in 1:no){
+  if(type=='sharpe'){
+  fits <- rbind(fits,objective_sharpe(agents[[i]]))
+  }else{
+    fits <- rbind(fits,objective_var(agents[[i]]))
+  }
+}
+mac=which.max(fits)
+
+return(mac)
+}
+
+#Returning Worst Agent
+worst_agent<-function(agents,no,type){
+fits<-matrix(nrow=0,ncol = 1)
+for(i in 1:no){
+  if(type=='sharpe'){
+  fits <- rbind(fits,objective_sharpe(agents[[i]]))
+  }else{
+    fits <- rbind(fits,objective_var(agents[[i]]))
+  }
+}
+return(which.min(fits))
+}
+```
+
+
+```{r}
+
+#Objective functions for optimization
+objective_sharpe <- function(w){
+w=w[1:no_stocks]
+weight_sum=0
+for(i in 1:no_stocks){
+weight_sum = weight_sum + w[i]
+}
+
+if(weight_sum >1){
+  cons=-5
+  #5 for 48 stocks
+}
+else{
+  cons=5
+}
+return((w%*%mu-rfr)/sqrt(t(w)%*%cov_mat%*%w)+cons*(weight_sum-1))
+}
+
+
+objective_var <- function(w,risk=1.5){
+w=w[1:no_stocks]
+weight_sum=0
+for(i in 1:no_stocks){
+weight_sum = weight_sum+ w[i]
+}
+if(weight_sum >1){
+  cons=-2.5
+}
+else{
+  cons=2.5
+}
+
+return (w%*%mu-risk*2.326348*sqrt(t(w)%*%cov_mat%*%w)+cons*(weight_sum-1))
+}
+
+```
+
+#CUCKOO
+```{r}
+counter=2
+cuckoo<-c(0,0,0,0)
+names(cuckoo)<-c("Return","Risk","Sharpe","RunTime")
+while(counter!=0){
+max_iters=1000000 
+#no_nests=50
+no_nests=no_agents
+nests <- fixed_intialisations
+evolution_matrix<-matrix(nrow=0,ncol = 1)
+exploitation<-0.8
+
+start_time<-Sys.time()
+for(i in 1:max_iters){
+  index<-round(runif(1,1,no_nests))
+  samp<-nests[[index]]
+  flag=sample(c(0,1),1,prob = c(1-exploitation,exploitation))
+  if(flag == 0){
+    nests[[index]]<-t(runif(no_stocks,0,1))
+  }else{
+    #lev<-abs(levy())
+    lev<-levy()
+    
+    #if(objective_sharpe(samp)<objective_sharpe(samp+0.05*lev)){
+    if(objective_var(samp,0.5)<objective_var(samp+0.05*lev,0.5)){
+      nests[[index]]<-nests[[index]]+(0.05*lev)
+    }
+  }
+  #evolution_matrix <- rbind(evolution_matrix,sharpe(nests[[best_agent(nests,no_agents,"sharpe")]]))
+}
+end_time<-Sys.time()
+optimal_agent<-best_agent(nests,no_agents,"v")
+sow<-sum_weights(nests[[optimal_agent]])
+if(0.95 < sow && 1.05 > sow){
+  counter=counter-1
+  print(counter)
+  cuckoo[1]<-cuckoo[1]+portfolio_return(nests[[optimal_agent]])
+  cuckoo[2]<-cuckoo[2]+portfolio_risk(nests[[optimal_agent]])
+  cuckoo[3]<- cuckoo[3]+sharpe(nests[[optimal_agent]])
+  cuckoo[4]<-cuckoo[4]+(end_time-start_time)
+}
+}
+
+#print(nests[[optimal_agent]])
+#portfolio_return(nests[[optimal_agent]])
+#portfolio_risk(nests[[optimal_agent]])
+#print(sharpe(nests[[optimal_agent]]))
+#print(sum_weights(nests[[optimal_agent]]))
+
+print(end_time-start_time)
+
+
+#print(cuckoo/10)
+print(cuckoo/2)
+
+```
+
+#Equally weighted portfolio
+```{r}
+w=rep(1/no_stocks,no_stocks)
+unwait<-c(0,0,0)
+names(unwait)<-c("Return","Risk","Sharpe")
+unwait[1]=portfolio_return(w)
+unwait[2]=sqrt(w%*%cov_mat%*%w)
+unwait[3]=(unwait[1]-rfr)/unwait[2]
+print(unwait)
+```
+
+#Harmony Search
+```{r}
+counter=2
+harm<-c(0,0,0,0)
+names(harm)<-c("Return","Risk","Sharpe","RunTime")
+while(counter!=0){
+no_harmonies=no_agents
+harmonies<-fixed_intialisations
+pitch_adjustment=0.4
+exploitation=0.8
+pitch_bandwidth=0.05
+
+start_time<-Sys.time()
+for(i in 1:10000){
+for(j in no_harmonies){
+  if(runif(1,0,1) < exploitation){
+    harmonies[[j]]=harmonies[[best_agent(harmonies,no_agents,"sharpe")]]
+  }else{
+    if(runif(1,0,1) < pitch_adjustment){
+       temp= harmonies[[j]]+runif(no_stocks,0,1)*pitch_bandwidth
+    }
+  
+  else{
+    temp=t(runif(no_stocks,0,1))
+  }
+    if(objective_sharpe(temp) > objective_sharpe(harmonies[[j]])){
+    harmonies[[j]]=temp
+  }
+  #bad_agent<-worst_agent(harmonies,no_agents,"sharpe")
+  
+  }
+}
+  
+}
+end_time<-Sys.time()
+optimal_agent<-best_agent(harmonies,no_agents,"sharpe")
+sow<-sum_weights(harmonies[[optimal_agent]])
+print(portfolio_return(harmonies[[optimal_agent]]))
+print(portfolio_risk(harmonies[[optimal_agent]]))
+print(sharpe(harmonies[[optimal_agent]]))
+print(end_time-start_time)
+if(0.95 < sow && 1.05 > sow){
+  counter=counter-1
+  print(counter)
+ harm[1]<-harm[1]+portfolio_return(harmonies[[optimal_agent]])
+  harm[2]<-harm[2]+portfolio_risk(harmonies[[optimal_agent]])
+  harm[3]<- harm[3]+sharpe(harmonies[[optimal_agent]])
+ harm[4]<-harm[4]+(end_time-start_time)
+}
+}
+print(end_time-start_time)
+print(harm/4)
+```
+```{r}
+print(end_time-start_time+6)
+```
+
+
+
+#Flower Pollination Algorithm
+```{r}
+counter=2
+flowa<-c(0,0,0,0)
+names(flowa)<-c("Return","Risk","Sharpe","RunTime")
+while(counter!=0){
+no_flowers=no_agents
+flowers<-fixed_intialisations
+gamma=0.1
+lambda=1.5
+p=0.8
+max_iters=100000
+options(error=recover)
+
+
+
+start_time<-Sys.time()
+# Main Pollination Loop
+for(i in 1:max_iters){
+  optimal_agent=best_agent(flowers,no_agents,"shar")
+ 
+  for(i in no_flowers){
+    if(runif(1,0,1)<p){
+      L<-c(levy(),levy(),levy(),levy())
+      temp<-flowers[[i]]+gamma*L*(flowers[[optimal_agent]]-flowers[[i]])
+    }
+    else{
+      j=runif(1,1,no_flowers)
+      k=runif(1,1,no_flowers)
+      temp<-flowers[[i]]+runif(1,0,1)*(flowers[[j]]-flowers[[k]])
+    }
+    if(objective_var(temp)>objective_var(flowers[[i]])){
+      flowers[[i]]<-temp
+    }
+  }
+}
+end_time<-Sys.time()
+optimal_agent<-best_agent(flowers,no_agents,"shrpe")
+sow<-sum_weights(flowers[[optimal_agent]])
+
+if(0.95 < sow && 1.05 > sow){
+  counter=counter-1
+  print(counter)
+  flowa[1]<-flowa[1]+portfolio_return(flowers[[optimal_agent]])
+  flowa[2]<-flowa[2]+portfolio_risk(flowers[[optimal_agent]])
+  flowa[3]<- flowa[3]+sharpe(flowers[[optimal_agent]])
+  flowa[4]<-flowa[4]+(end_time-start_time)
+}
+}
+print(end_time-start_time)
+print(flowa/5)
+
+```
+
+```{r}
+print(flowa/2)
+```
+
+#FIREFLY
+```{r}
+counter=1
+no_fireflies=no_agents
+fire<-c(0,0,0,0)
+names(fire)<-c("Return","Risk","Sharpe","RunTime")
+while(counter!=0){
+light_absorption_coefficient=0.2
+firefly_attraction=1
+exploration=0.2
+fireflies<-fixed_intialisations
+
+
+start_time<-Sys.time()
+for( i in 1:10000){
+  for( j in 1:no_fireflies){
+  for( k in j:no_fireflies){
+    
+    distance=0
+for(l in 1:no_stocks){
+distance=distance+(fireflies[[j]][,l]-fireflies[[k]][,l])^2
+}
+distance=sqrt(distance)
+
+    if(objective_var(fireflies[[j]])<objective_var(fireflies[[k]])){
+      fireflies[[j]]=fireflies[[j]]+exploration*rnorm(1)+firefly_attraction*exp(-light_absorption_coefficient*(distance^2))*(fireflies[[k]]-fireflies[[j]])
+    }
+else{
+       fireflies[[k]]=fireflies[[k]]+exploration*rnorm(1)+firefly_attraction*exp(-light_absorption_coefficient*(distance^2))*(fireflies[[j]]-fireflies[[k]])}
+}
+    }
+}
+
+
+print(1)
+end_time<-Sys.time()
+optimal_agent<-best_agent(fireflies,no_agents,"shrpe")
+sow<-sum_weights(fireflies[[optimal_agent]])
+print(sow)
+print(sharpe(fireflies[[optimal_agent]]))
+print(end_time-start_time)
+if(0.95 < sow && 1.05 > sow){
+  counter=counter-1
+  print(counter)
+  fire[1]<-fire[1]+portfolio_return(fireflies[[optimal_agent]])
+  fire[2]<-fire[2]+portfolio_risk(fireflies[[optimal_agent]])
+  fire[3]<- fire[3]+sharpe(fireflies[[optimal_agent]])
+  fire[4]<-fire[4]+(end_time-start_time)
+}
+}
+print(end_time-start_time)
+print(fire/7)
+
+```
+
+```{r}
+print(fire)
+```
+
+
+#BATS
+```{r}
+no_bats=no_agents
+counter=1
+bat<-c(0,0,0,0)
+names(bat)<-c("Return","Risk","Sharpe","RunTime")
+while(counter!=0){
+bats<-fixed_intialisations
+fmax=0.8
+fmin=0
+max_iters=10000
+gamma=1.5
+alpha=0.9
+sigma=0.01
+bat_properties<-list()
+options(error=recover)
+
+#Initialisations
+for(i in 1:no_bats){
+  bat_properties[[i]]<-i
+  bat_properties[[i]][["loudness"]]<-0.9
+  bat_properties[[i]][["emission_rate"]]<-0.01
+  bat_properties[[i]][["frequency"]]<-0
+  bat_properties[[i]][["velocity"]]<-list(rep(runif(1,0,0.4),no_stocks))
+}
+
+# Main Bat Loop
+start_time<-Sys.time()
+for(j in 1:max_iters){
+for(i in 1:no_bats){
+  rand=runif(1,0,1)
+  optimal_agent=best_agent(bats,no_agents,"shae")
+  frequency<-fmin+(fmax-fmin)*runif(1,-0.4,0.4)
+   
+   velocity <- NULL
+   velocity <-matrix(unlist(bat_properties[[i]][["velocity"]]),ncol = no_stocks)+(bats[[i]]-bats[[optimal_agent]])*bat_properties[[i]][["frequency"]]
+   
+   if(rand > bat_properties[[i]][["emission_rate"]]){
+     temp<-bats[[optimal_agent]]+sigma*levy()
+   }
+   if(rand < bat_properties[[i]][["loudness"]] && objective_var(temp)<objective_var(bats[[optimal_agent]])){
+     
+     bat_properties[[i]][["frequency"]]<-frequency
+     bat_properties[[i]][["velocity"]]<-velocity
+     bats[[i]]<-temp
+   }
+   bat_properties[[i]][["loudness"]]<-bat_properties[[i]][["loudness"]]*alpha
+   bat_properties[[i]][["emission_rate"]]<-bat_properties[[i]][["emission_rate"]]*(1-exp(-j*gamma))
+   
+}
+}
+end_time<-Sys.time()
+optimal_agent<-best_agent(bats,no_agents,"shrpe")
+sow<-sum_weights(bats[[optimal_agent]])
+print(sharpe(bats[[optimal_agent]]))
+print(end_time-start_time)
+print(sow)
+print(portfolio_return(bats[[optimal_agent]]))
+print(portfolio_risk(bats[[optimal_agent]]))
+
+if(0.95 < sow && 1.05 > sow){
+  counter=counter-1
+  print(counter)
+  bat[1]<-bat[1]+portfolio_return(bats[[optimal_agent]])
+  bat[2]<-bat[2]+portfolio_risk(bats[[optimal_agent]])
+  bat[3]<- bat[3]+sharpe(bats[[optimal_agent]])
+  bat[4]<-bat[4]+(end_time-start_time)
+}
+}
+print(end_time-start_time)
+print(bat/7)
+
+```
+
+```{r}
+print(sow)
+```
+
+#PSO
+```{r}
+no_particles=no_agents
+counter=4
+particle<-c(0,0,0,0)
+names(particle)<-c("Return","Risk","Sharpe","RunTime")
+
+while(counter!=0){
+particles<-fixed_intialisations
+particle_best<-fixed_intialisations
+alpha=0.2
+beta=0.2
+max_iters=1000
+particle_velocity<-list()
+previous_optimal_agent<-rep(0,4)
+options(error=recover)
+
+#Initialisations
+for(i in 1:no_particles){
+  particle_velocity[[i]]<-0
+}
+optimal_agent=best_agent(particles,no_agents,"sharpe")
+
+# Main Particle Loop
+#while(round(sharpe(optimal_agent),3) != round(sharpe(previous_optimal_agent),3)){
+start_time<-Sys.time()
+for(j in 1:max_iters){
+  for(i in 1:no_particles){
+  particle_velocity[[i]]<-particle_velocity[[i]]+alpha*(runif(1,0,1))*(particles[[optimal_agent]]-particles[[i]])+beta*(runif(1,0,1))*(particle_best[[i]]-particles[[i]])
+  particles[[i]]=particles[[i]]+particle_velocity[[i]]
+  
+  if(objective_sharpe(particles[[i]]) > objective_sharpe(particle_best[[i]])){
+    
+    particle_best[[i]]<-particles[[i]]
+
+  }
+  }
+    previous_optimal_agent<-optimal_agent
+    optimal_agent=best_agent(particles,no_agents,"sharpe")
+}
+end_time<-Sys.time()
+optimal_agent<-best_agent(nests,no_agents,"sharpe")
+sow<-sum_weights(particles[[optimal_agent]])
+print(sow)
+print(sharpe(particles[[optimal_agent]]))
+print(portfolio_risk(particles[[optimal_agent]]))
+print(portfolio_return(particles[[optimal_agent]]))
+print(end_time-start_time)
+if(0.95 < sow && 1.05 > sow){
+  counter=counter-1
+  print(counter)
+  particle[1]<-particle[1]+portfolio_return(particles[[optimal_agent]])
+  particle[2]<-particle[2]+portfolio_risk(particles[[optimal_agent]])
+  particle[3]<- particle[3]+sharpe(particles[[optimal_agent]])
+  particle[4]<-particle[4]+(end_time-start_time)
+}
+}
+print(end_time-start_time)
+print(particle/4)
+```
+
+```{r}
+print(partiles[[optimal_agent]])
+```
+
+
+
+# Elephants
+```{r}
+counter=3
+ele<-c(0,0,0,0)
+names(ele)<-c("Return","Risk","Sharpe","RunTime")
+
+while(counter!=0){
+no_elephants=no_agents
+elephants<-fixed_intialisations
+max_iters=5000
+clan_no=10
+clan_size=no_elephants/clan_no
+matriarch_influence=0.05
+
+
+start_time<-Sys.time()
+for(k in 1:max_iters){
+for(j in 1:clan_no){
+  clan<-NULL
+  if(j==1){
+    first_index=1
+  }else{
+  first_index=(j-1)*clan_size+1
+  }
+  last_index=j*clan_size
+  clan=elephants[first_index:last_index]
+  matriarch=best_agent(clan,clan_size,"she")
+  matriarch_update=runif(no_stocks,0,1)
+  for(i in 1:clan_size){
+    matriarch_update=matriarch_update+clan[[i]]
+    if(i != matriarch){
+    clan[[i]]=clan[[i]]+matriarch_influence*(clan[[matriarch]]-clan[[i]])*runif(1,0,1)
+    }
+  }
+  clan[[matriarch]]=clan[[matriarch]]+(1/clan_size)*matriarch_update*0.05
+  bad_agent=worst_agent(clan,clan_size,"shape")
+  clan[[bad_agent]]=runif(no_stocks,-1,1)
+   elephants[first_index:last_index]=clan
+}
+}
+end_time<-Sys.time()
+optimal_agent<-best_agent(elephants,no_agents,"share")
+sow<-sum_weights(elephants[[optimal_agent]])
+print(sow)
+#print(sharpe(t(elephants[[optimal_agent]])))
+if(0.95 < sow && 1.05 > sow){
+  counter=counter-1
+  print(counter)
+  ele[1]<-ele[1]+portfolio_return(elephants[[optimal_agent]])
+  ele[2]<-ele[2]+portfolio_risk(elephants[[optimal_agent]])
+  ele[3]<-ele[3]+sharpe(elephants[[optimal_agent]])
+  ele[4]<-ele[4]+(end_time-start_time)
+}
+print(end_time-start_time)
+}
+print(ele/3)
+
+```
+
+```{r}
+print(ele/2)
+```
+
+#Differential Evolution
+```{r}
+no_chromosomes<-no_agents
+counter=2
+chro<-c(0,0,0,0)
+names(chro)<-c("Return","Risk","Sharpe","RunTime")
+
+while(counter!=0){
+chromosomes<-fixed_intialisations
+differential_weight=0.8
+crossover_parameter=0.7
+temp<-matrix(nrow = 0,ncol=no_stocks)
+max_iters=1000
+
+
+start_time<-Sys.time()
+for(j in 1:max_iters){
+for(i in 1:no_chromosomes){
+  donor_vector=chromosomes[[round(runif(1,1,no_agents))]]+differential_weight*(chromosomes[[round(runif(1,1,no_agents))]]-chromosomes[[round(runif(1,1,no_agents))]])
+  J<-runif(1,0,no_stocks)
+  
+  for(k in 1:no_stocks){
+    if(runif(1,0,1)<=crossover_parameter || k==J){
+    temp[k]<-donor_vector[[k]]
+    }else{
+      temp[k]<-chromosomes[[i]][[k]]
+    }
+  }
+  
+  if(objective_var(temp)>objective_var(chromosomes[[i]])){
+    chromosomes[[i]]<-temp
+  }
+}
+}
+end_time<-Sys.time()
+optimal_agent<-best_agent(chromosomes,no_agents,"sharp")
+sow<-sum_weights(chromosomes[[optimal_agent]])
+print(sow)
+print(sharpe(chromosomes[[optimal_agent]]))
+
+if(0.95 < sow && 1.05 > sow){
+  counter=counter-1
+  print(counter)
+   #print(dim(chromosomes[[optimal_agent]]))
+  #print(dim(cov_mat))
+  chro[1]<-chro[1]+portfolio_return(chromosomes[[optimal_agent]])
+  chro[2]<-chro[2]+portfolio_risk(chromosomes[[optimal_agent]])
+  chro[3]<- chro[3]+sharpe(chromosomes[[optimal_agent]])
+  chro[4]<-chro[4]+(end_time-start_time)
+}
+}
+print(end_time-start_time)
+print(chro/2)
+```
+
+
+```{r}
+print(optimal_agent)
+#print(chromosomes[[optimal_agent]])
+print(portfolio_return(chromosomes[[optimal_agent]]))
+print(portfolio_risk(chromosomes[[optimal_agent]]))
+is.vector(elephants[[optimal_agent]])
+print(t(elephants[[optimal_agent]])%*%cov_mat%*%elephants[[optimal_agent]])
+#print(sharpe(elephants[[optimal_agent]]))
+```
+
+
+
+```{r}
+qnorm(0.99)
+```
+
